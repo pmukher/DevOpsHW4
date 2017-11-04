@@ -1,0 +1,21 @@
+version: '2'
+services:
+ redis:
+  build: ./redisDocker
+  container_name: redis
+  ports:
+   - "6379:6379"
+ node1:
+  build: ./nodeDocker
+  depends_on:
+   - redis
+  container_name: node1
+  ports:
+   - "8080:3000"
+ proxy:
+  build: ./proxyDocker
+  depends_on:
+   - redis
+  container_name: proxy
+  ports:
+   - "9000:9000"
